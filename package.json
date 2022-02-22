@@ -1,0 +1,23 @@
+{
+  "name": "danatours",
+  "version": "1.0.0",
+  "description": "portfolio project using node, express and mongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
+  },
+  "author": "Yosef Samuel and Abebayhu S.",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "airbnb": "0.0.2",
+    "eslint": "^8.9.0",
+    "prettier": "2.5.1"
+  }
+}
