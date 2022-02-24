@@ -6,7 +6,7 @@ exports.getAllTours = async (req, res) => {
     // Building Query
     
     // FILTERING
-    // =========
+    // usage: uri?field_1[filter]=value_1
     const queryObj = {...req.query};
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
     excludeFields.forEach(el => delete queryObj[el]);
@@ -20,13 +20,22 @@ exports.getAllTours = async (req, res) => {
     console.log(req.query);
     
     // SORTING
-    // =======
+    // usage: uri?sort=field_1,field_2
     if (req.query.sort) {
       const sortBy = req.query.sort.split(',').join(' ');
       console.log(sortBy)
       query = query.sort(sortBy)
     } else {
       query = query.sort('-createdAt');
+    }
+
+    // FIELD LIMITING
+    // usage: uri?fields=field_1,field_2
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      query = query.select(fields);
+    } else {
+      query = query.select ('-__v');
     }
 
     const tours = await query;
