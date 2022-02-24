@@ -1,59 +1,76 @@
 const Tour = require("../models/tourModel");
+exports.aliasTopTours = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,price';
+  req.query.fields = 'name, price, ratingsAverage, summary, difficulty';
+  next();
+};
 
-// GET ALL TOURS
+class APIFeatures {
+  constructor(query, queryStr) {
+    this.query = query;
+    this.queryStr = queryStr;
+  }
+
+  filter() {
+    // usage: uri?field_1[filter]=value_1
+    const queryObj = { ...this.queryStr };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach(el => delete queryObj[el]);
+
+    let queryString = JSON.stringify(queryObj);
+    queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+
+    this.query = this.query.find(JSON.parse(queryString));
+
+    return this;
+  }
+
+  sort() {
+    // usage: uri?sort=field_1,field_2
+    if (this.queryStr.sort) {
+      const sortBy = this.queryStr.sort.split(',').join(' ');
+      this.query = this.query.sort(sortBy);
+    } else {
+      this.query = this.query.sort('-createdAt');
+    }
+
+    return this;
+  }
+
+  limitFields() {
+    // usage: uri?fields=field_1,field_2
+    if (this.queryStr.fields) {
+      const fields = this.queryStr.fields.split(',').join(' ');
+      this.query = this.query.select(fields);
+    } else {
+      this.query = this.query.select('-__v');
+    }
+
+    return this;
+  }
+
+  paginate() {
+    // usage: uri?page=page_num&limit=item_per_page
+    const page = this.queryStr.page * 1 || 1;
+    const limit = this.queryStr.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+
+    this.query = this.query.skip(skip).limit(limit);
+
+    return this;
+  }
+}
+
 exports.getAllTours = async (req, res) => {
   try {
-    // Building Query
-    
-    // FILTERING
-    // usage: uri?field_1[filter]=value_1
-    const queryObj = {...req.query};
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach(el => delete queryObj[el]);
-
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match =>  `$${match}`);
-    console.log(JSON.parse(queryStr));
-
-    const query = Tour.find(JSON.parse(queryStr));
-
     console.log(req.query);
-    
-    // SORTING
-    // usage: uri?sort=field_1,field_2
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(',').join(' ');
-      console.log(sortBy)
-      query = query.sort(sortBy)
-    } else {
-      query = query.sort('-createdAt');
-    }
-
-    // FIELD LIMITING
-    // usage: uri?fields=field_1,field_2
-    if (req.query.fields) {
-      const fields = req.query.fields.split(',').join(' ');
-      query = query.select(fields);
-    } else {
-      query = query.select ('-__v');
-    }
-
-    // PAGINATION
-    // usage: uri?page=page_num&limit=item_per_page
-    const  page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 100;
-    const skip =(page - 1) * limit;
-
-
-    query  = query.skip(skip).limit(limit);
-
-    if (req.query.page) {
-      const numTours = await Tour.countDocuments();
-      if (skip >= numTours) throw new Error ("This is page does not exist");
-    }
-
-    // EXECUTE QUERY
-    const tours = await query;
+    //EXECUTE QUERY
+    const features = new APIFeatures(Tour.find(),req.query)
+    .filter()
+    .sort()
+    .limitFields().paginate();
+    const tours = await features.query;
 
     res.status(200).json({
       status: "success",
@@ -70,7 +87,8 @@ exports.getAllTours = async (req, res) => {
   }
 };
 
-// GET TOUR BY ID
+
+// get a tour by id
 exports.getTour = async (req, res) => {
   try {
     const tour = await Tour.findById(req.params.id)
@@ -89,7 +107,8 @@ exports.getTour = async (req, res) => {
   }
 };
 
-// POST NEW TOUR
+
+// post a new tour
 exports.createTour = async (req, res) => {
   try{
       const newTour = await Tour.create(req.body);
@@ -108,7 +127,8 @@ exports.createTour = async (req, res) => {
   }
 };
 
-// UPDATE TOUR
+
+// patching a tour
 exports.updateTour = async (req, res) => {
   try {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
@@ -127,9 +147,11 @@ exports.updateTour = async (req, res) => {
       message: err
     });
   }
+
+  
 };
 
-// DELETE TOUR
+// deleting a tour
 exports.deleteTour = async (req, res) => {
   try {
     await Tour.findByIdAndDelete (req.params.id);
