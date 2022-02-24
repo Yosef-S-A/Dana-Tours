@@ -13,7 +13,6 @@ class APIFeatures {
   }
 
   filter() {
-    // usage: uri?field_1[filter]=value_1
     const queryObj = { ...this.queryStr };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach(el => delete queryObj[el]);
@@ -27,12 +26,9 @@ class APIFeatures {
   }
 
   sort() {
-    // usage: uri?sort=field_1,field_2
     if (this.queryStr.sort) {
       const sortBy = this.queryStr.sort.split(',').join(' ');
       this.query = this.query.sort(sortBy);
-    } else {
-      this.query = this.query.sort('-createdAt');
     }
 
     return this;
@@ -51,7 +47,6 @@ class APIFeatures {
   }
 
   paginate() {
-    // usage: uri?page=page_num&limit=item_per_page
     const page = this.queryStr.page * 1 || 1;
     const limit = this.queryStr.limit * 1 || 100;
     const skip = (page - 1) * limit;
@@ -62,10 +57,10 @@ class APIFeatures {
   }
 }
 
+
 exports.getAllTours = async (req, res) => {
   try {
-    console.log(req.query);
-    //EXECUTE QUERY
+    // EXECUTE QUERY
     const features = new APIFeatures(Tour.find(),req.query)
     .filter()
     .sort()
@@ -87,7 +82,6 @@ exports.getAllTours = async (req, res) => {
   }
 };
 
-
 // get a tour by id
 exports.getTour = async (req, res) => {
   try {
@@ -106,7 +100,6 @@ exports.getTour = async (req, res) => {
     });
   }
 };
-
 
 // post a new tour
 exports.createTour = async (req, res) => {
@@ -127,7 +120,6 @@ exports.createTour = async (req, res) => {
   }
 };
 
-
 // patching a tour
 exports.updateTour = async (req, res) => {
   try {
@@ -147,8 +139,6 @@ exports.updateTour = async (req, res) => {
       message: err
     });
   }
-
-  
 };
 
 // deleting a tour
@@ -168,3 +158,4 @@ exports.deleteTour = async (req, res) => {
     });
   }
 };
+ 
