@@ -3,35 +3,21 @@ const Tour = require("../models/tourModel");
 // GET ALL TOURS
 exports.getAllTours = async (req, res) => {
   try {
-    // Building Query
-    // Filtering
-    const queryObj = {...req.query};
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach(el => delete queryObj[el]);
-
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match =>  `$${match}`);
-    console.log(JSON.parse(queryStr));
-
-    const query = Tour.find(JSON.parse(queryStr));
-
-    console.log(req.query);
-
-    const tours = await query;
-
+    const tours = await Tour.find();
+    
     res.status(200).json({
-      status: "success",
-      results: tours.length,
-      data: {
-        tours
-      }
+    	status: 'success',
+    	results: tours.length,
+    	data: {
+    		tours
+    	}
     });
-  } catch(err){
-    res.status(404).json({
-      status: 'fail',
-      message: err
-    })
-  }
+} catch (err) {
+	res.status(404).json({
+		status: 'fail',
+		message: err
+	});
+   }
 };
 
 // GET TOUR BY ID
