@@ -1,3 +1,7 @@
+// Import and delete commands
+// node dev-data/data/import_data_for_dev.js --import
+// node dev-data/data/import_data_for_dev.js --delete
+
 const fs = require("fs");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
