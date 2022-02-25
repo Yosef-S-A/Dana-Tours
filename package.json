@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
   },
   "author": "Yosef Samuel and Abebayhu S.",
   "license": "ISC",
@@ -15,7 +16,8 @@
     "express": "^4.17.2",
     "mongoose": "^6.2.2",
     "morgan": "^1.10.0",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "airbnb": "^0.0.2",
@@ -23,6 +25,8 @@
     "eslint-config-prettier": "8.4.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "ndb": "^1.1.5",
     "prettier": "2.5.1"
   }
 }
+
