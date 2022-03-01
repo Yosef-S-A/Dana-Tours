@@ -102,15 +102,15 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
   if (!lat || !lng) {
     next(
       new AppError(
-        'Please provide latitutr and longitude in the format lat,lng.',
+        'Please provide latitude and longitude in the format lat,lng.',
         400
       )
     );
   }
 
-  const tours = await Tour.find({
-    startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
-  });
+  console.log(distance, lng, lat, radius);
+
+  const tours = await Tour.find({startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius]}}});
 
   res.status(200).json({
     status: 'success',
@@ -130,7 +130,7 @@ exports.getDistances = catchAsync(async (req, res, next) => {
   if (!lat || !lng) {
     next(
       new AppError(
-        'Please provide latitutr and longitude in the format lat,lng.',
+        'Please provide latitutd and longitude in the format lat,lng.',
         400
       )
     );
