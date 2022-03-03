@@ -1,0 +1,19 @@
+header.header
+  nav.nav.nav--tours
+    a.nav__el(href='#') All tours
+    form.nav__search
+      button.nav__search-btn
+        svg
+          use(xlink:href='img/icons.svg#icon-search')
+      input.nav__search-input(type='text' placeholder='Search tours')
+  .header__logo
+    img(src='img/logo_2.png' alt='Danatours logo')
+  nav.nav.nav--user
+    a.nav__el(href='#') My bookings
+    a.nav__el(href='#')
+      img.nav__user-img(src='img/user.jpg' alt='User photo')
+      span Lakshman
+    //
+      <button class="nav__el">Log in</button>
+      <button class="nav__el nav__el--cta">Sign up</button>
+// In video, this <main> element is wrongly called: <section class="overview">. So in pug template, please use main.main instead of section.overview
