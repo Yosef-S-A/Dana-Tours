@@ -46,7 +46,7 @@ const sendErrorDev = (err, req, res) => {
 };
 
 const sendErrorProd = (err, req, res) => {
-  // API
+  // A) API
   if (req.originalUrl.startsWith('/api')) {
     // A) Operational, trusted error: send message to client
     if (err.isOperational) {
@@ -76,7 +76,7 @@ const sendErrorProd = (err, req, res) => {
   }
   // Programming or other unknown error: don't leak error details
   // Log error
-  console.error('ERROR', err);
+  console.error('ERRORs', err);
   // Send generic message
   return res.status(err.statusCode).render('error', {
     title: 'Something went wrong!',
