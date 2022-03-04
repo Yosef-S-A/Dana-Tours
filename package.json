@@ -24,8 +24,10 @@
     "express": "^4.17.3",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.3.0",
+    "gm": "^1.23.1",
     "helmet": "^5.0.2",
     "hpp": "^0.2.3",
+    "imagemagick": "^0.1.3",
     "jsonwebtoken": "^8.5.1",
     "mapbox": "^1.0.0-beta10",
     "mapbox-gl": "^2.7.0",
@@ -38,6 +40,7 @@
     "slugify": "^1.6.5",
     "util": "^0.12.4",
     "validator": "^13.7.0",
+    "vips": "^1.0.0",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
