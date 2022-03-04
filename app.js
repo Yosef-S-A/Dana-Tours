@@ -7,6 +7,8 @@ const mongoSanitize = require('express-mongo-sanitize'); // sanitization against
 const xss = require('xss-clean'); //sanitization against cross site scripting
 const hpp = require('hpp'); // http parameter pollution
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -17,10 +19,16 @@ const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
+//IMPLEMENT CORS
+app.use(cors());
+
+app.options('*', cors());
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // GLOBAL MIDDLEWARES
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public'))); 
 
