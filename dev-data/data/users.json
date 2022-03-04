@@ -1,12 +1,21 @@
 [
   {
     "_id": "5c8a1d5b0190b214360dc057",
-    "name": "Jonas Schmedtmann",
-    "email": "admin@natours.io",
+    "name": "Abebayhu S",
+    "email": "admin@danatours.io",
     "role": "admin",
     "active": true,
     "photo": "user-1.jpg",
-    "password": "$2a$12$Q0grHjH9PXc6SxivC8m12.2mZJ9BbKcgFpwSG4Y1ZEII8HJVzWeyS"
+    "password": "pass1234"
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc033",
+    "name": "Yosef S",
+    "email": "admin_1@danatours.io",
+    "role": "admin",
+    "active": true,
+    "photo": "user-2.jpg",
+    "password": "pass1234"
   },
   {
     "_id": "5c8a1dfa2f8fb814b56fa181",
