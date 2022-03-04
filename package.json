@@ -6,13 +6,13 @@
   "scripts": {
     "start:dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
-    "debug": "ndb server.js",
-    "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
+    "debug": "ndb server.js"
   },
   "author": "Yosef Samuel and Abebayhu S.",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -27,6 +27,7 @@
     "helmet": "^5.0.2",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
+    "mapbox": "^1.0.0-beta10",
     "mapbox-gl": "^2.7.0",
     "mongoose": "^6.2.2",
     "morgan": "^1.10.0",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "airbnb": "^0.0.2",
+    "css-loader": "^6.6.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "8.4.0",
     "eslint-plugin-node": "11.1.0",
