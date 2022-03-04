@@ -19,7 +19,7 @@ const showAlert = (type, msg) => {
 };
 
 const login = async (email, password) => {
-  console.log(email, password);
+  // console.log(email, password);
   try {
     const result = await axios({
       method: 'POST',
