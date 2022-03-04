@@ -47,7 +47,7 @@ if (userDataForm) {
   userDataForm.addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('name').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value;
     updateData(name, email);
   });
 }
