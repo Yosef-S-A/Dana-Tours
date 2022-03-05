@@ -181,7 +181,7 @@
         "_id": "5c88fa8cf4afda39709c2965",
         "description": "Bale Mountains National Park",
         "type": "Point",
-        "coordinates": [34.06433303688014, 8.004609295572221],
+        "coordinates": [39.730711252344165, 6.877142789601212],
         "day": 1
       },
       {
@@ -189,7 +189,7 @@
         "description": "Mount Tulu Dimtu",
         "type": "Point",
         "coordinates": [39.81914132033612, 6.832607065675437],
-        "day": 4
+        "day": 3
       }
     ]
   },
