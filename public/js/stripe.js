@@ -2,7 +2,8 @@
 
 const bookBtn = document.getElementById('book-tour');
 
-const stripe = Stripe('pk_test_51KZyQyL4sHmrSopqwOffK1fhyHPqRgYUbBVzfpfmx6YSrppHqfE540Jf38Ntz6ChqbE2JZb4BThyTDCRP9W6z2io0031WZbZD7');
+// const stripe = Stripe('pk_test_51KZyQyL4sHmrSopqwOffK1fhyHPqRgYUbBVzfpfmx6YSrppHqfE540Jf38Ntz6ChqbE2JZb4BThyTDCRP9W6z2io0031WZbZD7');
+var stripe = Stripe('pk_test_51KZyQyL4sHmrSopqwOffK1fhyHPqRgYUbBVzfpfmx6YSrppHqfE540Jf38Ntz6ChqbE2JZb4BThyTDCRP9W6z2io0031WZbZD7');
 
 const bookTour = async tourId => {
   try {

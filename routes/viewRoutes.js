@@ -4,7 +4,7 @@ const authController = require('../controllers/authController');
 
 const CSP = 'Content-Security-Policy';
 const POLICY =
-  "default-src 'self' https://*.mapbox.com ;" +
+  "default-src 'self' https://*.mapbox.com https://js.stripe.com/v3/ ;" +
   "base-uri 'self';block-all-mixed-content;" +
   "font-src 'self' https: data:;" +
   "frame-ancestors 'self';" +

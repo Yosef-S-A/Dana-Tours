@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize'); // sanitization against
 const xss = require('xss-clean'); //sanitization against cross site scripting
 const hpp = require('hpp'); // http parameter pollution
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const compression = require('compression');
 const cors = require('cors');
 
@@ -17,24 +18,26 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 
+// Start express app
 const app = express();
+
+app.enable('trust proxy');
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 //IMPLEMENT CORS
 app.use(cors());
 
 app.options('*', cors());
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
-
-// GLOBAL MIDDLEWARES
-
 // Serving static files
-app.use(express.static(path.join(__dirname, 'public'))); 
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-app.use(helmet());
+app.use(helmet({crossOriginEmbedderPolicy: false,}));
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -48,6 +51,13 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again in an hour!'
 });
 app.use('/api', limiter);
+
+// Stripe webhook, BEFORE body-parser, because stripe needs the body as stream
+app.post(
+  '/webhook-checkout',
+  bodyParser.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));

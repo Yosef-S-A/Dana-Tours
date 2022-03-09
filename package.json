@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "@stripe/stripe-js": "^1.24.0",
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -40,7 +41,7 @@
     "parcel-bundler": "^1.12.5",
     "pug": "^3.0.2",
     "slugify": "^1.6.5",
-    "stripe": "^8.207.0",
+    "stripe": "^8.208.0",
     "util": "^0.12.4",
     "validator": "^13.7.0",
     "vips": "^1.0.0",
