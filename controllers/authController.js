@@ -22,7 +22,7 @@ const createSendToken = (user, statusCode,res) => {
     // secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-  
+
   res.cookie('jwt', token, cookieOptions);
 
   // Remove password from output

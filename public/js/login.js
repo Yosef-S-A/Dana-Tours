@@ -4,7 +4,6 @@
 const loginForm = document.querySelector('.form');
 const logoutBtn = document.querySelector('.nav__el--logout');
 
-
 const hideAlert = () => {
   const el = document.querySelector('.alert');
   if (el) el.parentElement.removeChild(el);
