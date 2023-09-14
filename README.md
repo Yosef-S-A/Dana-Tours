@@ -63,4 +63,4 @@
 ## Authors
 Yosef Samuel
 
-Abebayhu S.
+Abebayhu Sam.
